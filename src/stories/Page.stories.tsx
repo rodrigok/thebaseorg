@@ -18,6 +18,7 @@ Grade.args = {
 	skills,
 	disciplines,
 	grade,
+	expertise: 'backend',
 };
 
 // export const LoggedOut = Template.bind({});

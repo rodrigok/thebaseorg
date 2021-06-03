@@ -13,22 +13,26 @@ export type Skill = {
 }
 
 export type Department = {
+	id: string;
 	name: string;
 	description: string;
 }
 
 export type Expertise = {
+	id: string;
 	department: Department;
 	name: string;
 	description: string;
 }
+
+export type RestrictedTo = (Department['id'] | Expertise['id'])[];
 
 export type Position = {
 	id: string;
 	name: string;
 	description: string;
 	level: number;
-	restrictedTo?: (Department | Expertise)[];
+	restrictedTo?: RestrictedTo;
 	hiring?: {
 		link: string;
 	}
@@ -43,10 +47,13 @@ export type Discipline = {
 export type Grade = {
 	categories: {
 		name: string;
-		restrictedTo?: (Department | Expertise)[];
+		restrictedTo?: RestrictedTo;
 		skills: {
 			[skill: string]: {
-				[position: string]: number;
+				restrictedTo?: RestrictedTo;
+				positions: {
+					[position: string]: number;
+				}
 			}
 		};
 	}[];

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './page.css';
@@ -11,6 +12,7 @@ export interface PageProps {
 	skills: Skill[];
 	disciplines: Discipline[];
 	grade: Grade;
+	expertise: string;
 }
 
 const useStyles = makeStyles({
@@ -139,7 +141,9 @@ export const Page: React.FC<PageProps> = (props) => {
 
 	// Render skills
 	props.grade.categories.forEach((category) => {
-		const skillCount = Object.keys(category.skills).length;
+		const categorySkills = Object.entries(category.skills).filter(([, s]) => !props.expertise || !s.restrictedTo || s.restrictedTo.length === 0 || s.restrictedTo.includes(props.expertise));
+		const skillCount = categorySkills.length;
+
 		rows.push(
 			<tr>
 				<CellCategory border={false} shadowRight className={`${ classes.categoryCell } ${ classes.stickLeft }`}>
@@ -152,8 +156,7 @@ export const Page: React.FC<PageProps> = (props) => {
 			</tr>,
 		);
 
-
-		for (const [id, levels] of Object.entries(category.skills)) {
+		for (const [id, levels] of categorySkills) {
 			const cells = [];
 			const sk = props.skills.find((s) => s.id === id);
 			if (!sk) {
@@ -164,14 +167,15 @@ export const Page: React.FC<PageProps> = (props) => {
 					{sk.name}
 				</div>
 				{sk.description.length > 140 ? `${ sk.description.substr(0, 137) }${ '...' }` : sk.description }
+				{levels.restrictedTo?.map((r) => <Chip size='small' variant='outlined' label={r} />)}
 			</CellWhite>);
 
 			props.disciplines.forEach((discipline) => {
 				discipline.positions.forEach((position) => {
-					const lv = sk.levels.find((l) => l.level === levels[position.id]);
+					const lv = sk.levels.find((l) => l.level === levels.positions[position.id]);
 					if (lv) {
 						cells.push(<CellWhite>
-							<Bullets count={lv.level} total={levels.length}></Bullets>
+							<Bullets count={lv.level} total={sk.levels.length}></Bullets>
 							{lv.description.length > 140 ? `${ lv.description.substr(0, 137) }${ '...' }` : lv.description }
 						</CellWhite>);
 					} else {
