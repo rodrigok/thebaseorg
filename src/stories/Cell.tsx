@@ -10,6 +10,7 @@ export interface CellProps {
 	colSpan?: number
 	verticalAlign?: 'top' | 'middle';
 	textAlign?: 'left' | 'center';
+	onClick?: () => void;
 }
 
 const useStyles = makeStyles<undefined, CellProps>({
@@ -45,7 +46,7 @@ const useStyles = makeStyles<undefined, CellProps>({
 export const Cell: React.FC<CellProps> = (props) => {
 	const classes = useStyles(props);
 
-	return <td colSpan={props.colSpan} className={`${ classes.cell } ${ classes.cellDynamic } ${ props.className }`}>
+	return <td colSpan={props.colSpan} className={`${ classes.cell } ${ classes.cellDynamic } ${ props.className }`} onClick={props.onClick}>
 		{props.children}
 	</td>;
 };

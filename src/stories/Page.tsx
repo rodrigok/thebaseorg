@@ -1,5 +1,5 @@
-import React from 'react';
-import { Chip } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Chip, Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './page.css';
@@ -7,6 +7,7 @@ import './page.css';
 import { Bullets } from './Bullet';
 import { Skill, Position, Discipline, Grade } from '../definitions/definitions';
 import { Cell, CellProps } from './Cell';
+import { SkillPage } from './Skill';
 
 export interface PageProps {
 	skills: Skill[];
@@ -78,6 +79,7 @@ const CellCategory: React.FC<CellProps> = (props) => <Cell backgroundColor='#40b
 
 export const Page: React.FC<PageProps> = (props) => {
 	const classes = useStyles();
+	const [selectedSkill, setSelectedSkill] = useState<[Skill['id'], number]>();
 
 	const rows = [];
 	let cells;
@@ -174,7 +176,7 @@ export const Page: React.FC<PageProps> = (props) => {
 				discipline.positions.forEach((position) => {
 					const lv = sk.levels.find((l) => l.level === levels.positions[position.id]);
 					if (lv) {
-						cells.push(<CellWhite>
+						cells.push(<CellWhite onClick={() => setSelectedSkill([sk.id, lv.level])}>
 							<Bullets count={lv.level} total={sk.levels.length}></Bullets>
 							{lv.description.length > 140 ? `${ lv.description.substr(0, 137) }${ '...' }` : lv.description }
 						</CellWhite>);
@@ -205,9 +207,22 @@ export const Page: React.FC<PageProps> = (props) => {
 		);
 	});
 
-	return (
+	return (<>
+		<Dialog
+			onClose={() => setSelectedSkill(undefined)}
+			open={!!selectedSkill}
+		>
+			<DialogTitle
+				// onClose={() => setSelectedSkill()}
+			>
+				Skill
+			</DialogTitle>
+			<DialogContent dividers>
+				<SkillPage skills={props.skills} skill={selectedSkill?.[0] || '1'} level={selectedSkill?.[1] || 1}></SkillPage>
+			</DialogContent>
+		</Dialog>
 		<table className={classes.table}>
 			{rows}
 		</table>
-	);
+	</>);
 };
