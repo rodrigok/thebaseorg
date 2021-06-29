@@ -27,4 +27,6 @@ jobs:
       - run: npm install
         if: steps.npm-cache.outputs.cache-hit != 'true'
 
-      - run: npm run deploy-storybook -- --ci
+      - run: npm run deploy-storybook
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
