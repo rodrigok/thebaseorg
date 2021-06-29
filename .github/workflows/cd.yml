@@ -1,0 +1,30 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  publish-to-gh-pages:
+    name: Publish to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('package-lock.json') }}
+
+      - run: npm install
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+
+      - run: npm run deploy-storybook -- --ci

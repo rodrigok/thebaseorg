@@ -13,7 +13,7 @@ export interface PageProps {
 	skills: Skill[];
 	disciplines: Discipline[];
 	grade: Grade;
-	expertise: string;
+	expertise: string[];
 }
 
 const useStyles = makeStyles({
@@ -143,7 +143,7 @@ export const Page: React.FC<PageProps> = (props) => {
 
 	// Render skills
 	props.grade.categories.forEach((category) => {
-		const categorySkills = Object.entries(category.skills).filter(([, s]) => !props.expertise || !s.restrictedTo || s.restrictedTo.length === 0 || s.restrictedTo.includes(props.expertise));
+		const categorySkills = Object.entries(category.skills).filter(([, s]) => !props.expertise || props.expertise.length === 0 || !s.restrictedTo || s.restrictedTo.length === 0 || props.expertise.find((expertise) => s?.restrictedTo?.includes(expertise)));
 		const skillCount = categorySkills.length;
 
 		rows.push(

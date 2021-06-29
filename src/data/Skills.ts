@@ -1,5 +1,16 @@
 import { Skill } from '../definitions/definitions';
 
+const OptionalMandatory = [
+	{ level: 1, description: 'Optional', examples: [] },
+	{ level: 2, description: 'Mandatory', examples: [] },
+];
+
+const SimpleLevels = [
+	{ level: 1, description: 'Basic', examples: [] },
+	{ level: 2, description: 'Intermediary', examples: [] },
+	{ level: 3, description: 'Advanced', examples: [] },
+];
+
 export const skills: Skill[] = [{
 	id: '1',
 	name: 'Empathy & Humility',
@@ -719,7 +730,7 @@ export const skills: Skill[] = [{
 	}],
 }, {
 	id: '16',
-	name: 'NodeJS',
+	name: 'NodeJS test',
 	description: '',
 	levels: [{
 		level: 1,
@@ -731,4 +742,48 @@ export const skills: Skill[] = [{
 			"<b>Vulnerability</b>: You have proactively admitted fault and weakness in yourself to team members, and admitted a mistake made in work you've done.",
 		],
 	}],
-}];
+}, {
+	id: 'handbook',
+	name: 'Handbook',
+	description: '',
+	levels: OptionalMandatory,
+}, {
+	id: 'internal-processes',
+	name: 'Internal Processes',
+	description: '',
+	levels: OptionalMandatory,
+}, ...[
+	'Security Best Practices',
+	'GitHub and Git',
+	'MongoDB',
+	'RESTful API & Web Services',
+	'WebSockets',
+	'JavaScript',
+	'TypeScript',
+	'NodeJS',
+	'Docker',
+	'CI/CD',
+	'Code Patterns / Lint / Build Tools',
+	'System Architecture',
+	'Softskills',
+	'Testing Best Practices',
+	'Debugging skills',
+	'Database SQL / NoSQL',
+	'React',
+	'UI/UX conventions - I18N, A11Y, accessibility',
+	'HTML & CSS',
+	'React Native/Native (iOS and/or Android)',
+	'Redux',
+	'Fastlane',
+	'Detox',
+	'Native (iOS and Android)',
+	'Electron',
+	'Linux OS',
+	'Micro services / Distributed systems|Understanding of Async Methodologies (Queues/RabbitMQ/Redis/etc)',
+	'DevOps and Containerization',
+	'Cloud-native',
+	'Golang',
+	'Networking and Internet Protocols',
+	'Cloud Service Providers',
+].map((i) => ({ id: i.split('|')[0], name: i.split('|')[0], description: i.split('|')[1] || '', levels: SimpleLevels })),
+];
