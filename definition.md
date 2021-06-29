@@ -13,3 +13,4 @@ TODO:
 Area (Technology / Sales) [Disciplines & Categories]
 	Department (Development / Security / Quality / Design / Infrastructure) [Categories]
 		Expertise (Frontend / Backend / SRE / DRE / Designer / UX Research / Manual QA / Tester) [Categories]
+
