@@ -8,6 +8,7 @@ import { Bullets } from './Bullet';
 import { Skill, Position, Discipline, Grade } from '../definitions/definitions';
 import { Cell, CellProps } from './Cell';
 import { SkillPage } from './Skill';
+import { PositionPage } from './Position';
 
 export interface PageProps {
 	skills: Skill[];
@@ -47,7 +48,7 @@ const useStyles = makeStyles({
 	},
 	button: {
 		fontWeight: 600,
-		color: '#33995e',
+		color: '#F5455C',
 	},
 	stickTop: {
 		position: 'sticky',
@@ -75,11 +76,12 @@ const useStyles = makeStyles({
 });
 
 const CellWhite: React.FC<CellProps> = (props) => <Cell backgroundColor='#fff' {...props}>{props.children}</Cell>;
-const CellCategory: React.FC<CellProps> = (props) => <Cell backgroundColor='#40bf75' {...props}>{props.children}</Cell>;
+const CellCategory: React.FC<CellProps> = (props) => <Cell backgroundColor='#F5455C' {...props}>{props.children}</Cell>;
 
 export const Page: React.FC<PageProps> = (props) => {
 	const classes = useStyles();
 	const [selectedSkill, setSelectedSkill] = useState<[Skill['id'], number]>();
+	const [selectedPosition, setSelectedPosition] = useState<[Position['id'], string]>();
 
 	const rows = [];
 	let cells;
@@ -87,7 +89,7 @@ export const Page: React.FC<PageProps> = (props) => {
 	const headerBox = <div className={classes.title}>Positions -&gt;</div>;
 
 	const positionBox = (position: Position, discipline: Discipline) => {
-		const count = props.grade.categories.reduce((count, category) => count + Object.values(category.skills).filter((p) => position.id in p).length, 0);
+		const count = props.grade.categories.reduce((count, category) => count + Object.values(category.skills).filter((s) => position.id in s.positions).length, 0);
 		return <>
 			<div className={classes.initials}>
 				{discipline.initials + position.level}
@@ -97,9 +99,6 @@ export const Page: React.FC<PageProps> = (props) => {
 			</div>
 			<div>
 				{count} {count === 1 ? 'skill' : 'skills'}
-			</div>
-			<div>
-				"users"
 			</div>
 		</>;
 	};
@@ -116,9 +115,9 @@ export const Page: React.FC<PageProps> = (props) => {
 			</div>
 		</CellWhite>);
 	});
-	cells.push(<CellWhite verticalAlign='middle' textAlign='center' className={`${ classes.stickTop } ${ classes.button }`}>
-		+ Add a discipline
-	</CellWhite>);
+	// cells.push(<CellWhite verticalAlign='middle' textAlign='center' className={`${ classes.stickTop } ${ classes.button }`}>
+	// 	+ Add a discipline
+	// </CellWhite>);
 
 	rows.push(<tr>{cells}</tr>);
 
@@ -132,7 +131,7 @@ export const Page: React.FC<PageProps> = (props) => {
 	props.disciplines.forEach((discipline) => {
 		discipline.positions.forEach((position) => {
 			positionCount++;
-			cells.push(<CellWhite shadowBottom className={`${ classes.stickTop } ${ classes.stickTop2 }`}>
+			cells.push(<CellWhite shadowBottom className={`${ classes.stickTop } ${ classes.stickTop2 }`} onClick={() => setSelectedPosition([position.id, discipline.initials])}>
 				{positionBox(position, discipline)}
 			</CellWhite>);
 		});
@@ -182,10 +181,10 @@ export const Page: React.FC<PageProps> = (props) => {
 						</CellWhite>);
 					} else {
 						cells.push(<Cell verticalAlign='middle' textAlign='center'>
-							<div className={classes.empty}>
+							{/* <div className={classes.empty}>
 								Add requirement<br/>
 								+
-							</div>
+							</div> */}
 						</Cell>);
 					}
 				});
@@ -194,12 +193,12 @@ export const Page: React.FC<PageProps> = (props) => {
 		}
 
 		rows.push(
-			<tr>
-				<CellWhite border={false} verticalAlign='middle' textAlign='center' shadowRight className={`${ classes.addRowCell } ${ classes.stickLeft } ${ classes.button }`}>
-					+ Add skills to category
-				</CellWhite>
-				<CellWhite border={false} colSpan={positionCount} className={classes.addRowCell}></CellWhite>
-			</tr>,
+			// <tr>
+			// 	<CellWhite border={false} verticalAlign='middle' textAlign='center' shadowRight className={`${ classes.addRowCell } ${ classes.stickLeft } ${ classes.button }`}>
+			// 		+ Add skills to category
+			// 	</CellWhite>
+			// 	<CellWhite border={false} colSpan={positionCount} className={classes.addRowCell}></CellWhite>
+			// </tr>,
 			<tr>
 				<Cell border={false} shadowRight className={classes.stickLeft}></Cell>
 				<Cell border={false} colSpan={positionCount}></Cell>
@@ -219,6 +218,19 @@ export const Page: React.FC<PageProps> = (props) => {
 			</DialogTitle>
 			<DialogContent dividers>
 				<SkillPage skills={props.skills} skill={selectedSkill?.[0] || '1'} level={selectedSkill?.[1] || 1}></SkillPage>
+			</DialogContent>
+		</Dialog>
+		<Dialog
+			onClose={() => setSelectedPosition(undefined)}
+			open={!!selectedPosition}
+		>
+			<DialogTitle
+				// onClose={() => setSelectedSkill()}
+			>
+				Position
+			</DialogTitle>
+			<DialogContent dividers>
+				<PositionPage skills={props.skills} position={selectedPosition?.[0] || '1'} discipline={selectedPosition?.[1] || 'SE'} disciplines={props.disciplines} grade={props.grade}></PositionPage>
 			</DialogContent>
 		</Dialog>
 		<table className={classes.table}>

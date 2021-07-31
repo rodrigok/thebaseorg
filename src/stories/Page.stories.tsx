@@ -26,7 +26,7 @@ GradeRocket.args = {
 	skills,
 	disciplines: disciplinesRocket,
 	grade: gradeRocket,
-	expertise: ['Frontend', 'Frontend (Web)'],
+	// expertise: ['Frontend', 'Frontend (Web)'],
 };
 
 // export const LoggedOut = Template.bind({});

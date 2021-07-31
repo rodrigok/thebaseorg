@@ -140,26 +140,6 @@ export const grade: Grade = {
 			},
 		},
 	}, {
-		name: 'Technical',
-		skills: {
-			16: {
-				restrictedTo: [
-					'backend',
-				],
-				positions: {
-					1: 1,
-					2: 2,
-					3: 3,
-					4: 4,
-					5: 5,
-					6: 3,
-					7: 3,
-					8: 4,
-					9: 5,
-				},
-			},
-		},
-	}, {
 		name: 'Leadership',
 		skills: {
 			11: {
@@ -220,7 +200,7 @@ export const grade: Grade = {
 };
 
 export const gradeRocket: Grade = {
-	categories: [{
+	categories: [...grade.categories, {
 		name: 'Development',
 		skills: {
 			'GitHub and Git': {
@@ -445,15 +425,15 @@ export const gradeRocket: Grade = {
 					4: 3,
 				},
 			},
-			'Cloud-native': {
-				restrictedTo: ['Backend (Cloud)'],
-				positions: {
-					1: 1,
-					2: 2,
-					3: 3,
-					4: 3,
-				},
-			},
+			// 'Cloud-native': {
+			// 	restrictedTo: ['Backend (Cloud)'],
+			// 	positions: {
+			// 		1: 1,
+			// 		2: 2,
+			// 		3: 3,
+			// 		4: 3,
+			// 	},
+			// },
 			Golang: {
 				restrictedTo: ['Backend (Cloud)'],
 				positions: {
@@ -480,20 +460,20 @@ export const gradeRocket: Grade = {
 					4: 2,
 				},
 			},
-			'Networking and Internet Protocols': {
-				restrictedTo: ['Backend (Cloud)'],
-				positions: {
-					3: 1,
-					4: 2,
-				},
-			},
-			'Cloud Service Providers': {
-				restrictedTo: ['Backend (Cloud)'],
-				positions: {
-					3: 1,
-					4: 2,
-				},
-			},
+			// 'Networking and Internet Protocols': {
+			// 	restrictedTo: ['Backend (Cloud)'],
+			// 	positions: {
+			// 		3: 1,
+			// 		4: 2,
+			// 	},
+			// },
+			// 'Cloud Service Providers': {
+			// 	restrictedTo: ['Backend (Cloud)'],
+			// 	positions: {
+			// 		3: 1,
+			// 		4: 2,
+			// 	},
+			// },
 		},
 	}, {
 		name: 'Onboard',

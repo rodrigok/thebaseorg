@@ -729,20 +729,6 @@ export const skills: Skill[] = [{
 		],
 	}],
 }, {
-	id: '16',
-	name: 'NodeJS test',
-	description: '',
-	levels: [{
-		level: 1,
-		description: 'Basic NodeJS knowledge',
-		examples: [
-			"<b>Putting the team first</b>: You regularly make time for listening to and understanding the people you're responsible for.",
-			'<b>Difficult conversations</b>: You have helped someone on your team out with a difficult personal decision and acted in an objective, professional manner.',
-			'<b>Reliability</b>: You have been open about your intentions when making a team-level decision – for example moving people between teams or introducing new role expectations – and followed through.',
-			"<b>Vulnerability</b>: You have proactively admitted fault and weakness in yourself to team members, and admitted a mistake made in work you've done.",
-		],
-	}],
-}, {
 	id: 'handbook',
 	name: 'Handbook',
 	description: '',

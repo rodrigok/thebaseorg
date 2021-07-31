@@ -85,10 +85,10 @@ export const disciplinesRocket: Discipline[] = [{
 		description: '',
 		level: 5,
 	}, {
-		id: '5',
+		id: 'SE6',
 		name: 'Distinguished Engineer',
 		description: '',
-		level: 5,
+		level: 6,
 	}],
 }, {
 	name: 'Engineering Management',
@@ -113,5 +113,10 @@ export const disciplinesRocket: Discipline[] = [{
 		name: 'VP of Engineering',
 		description: '',
 		level: 6,
+	}, {
+		id: '10',
+		name: 'CTO',
+		description: '',
+		level: 7,
 	}],
 }];

@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 		borderRadius: 10,
 	},
 	bulletFilled: {
-		backgroundColor: '#33995e',
+		backgroundColor: '#1D74F5',
 	},
 });
 
